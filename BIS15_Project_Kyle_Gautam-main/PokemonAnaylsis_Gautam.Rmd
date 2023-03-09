@@ -1,0 +1,83 @@
+---
+title: "Pokemon Gautam Ponugubati"
+output: html_document
+date: "2023-02-21"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+library(janitor)
+library(dplyr)
+```
+
+```{r}
+pokemon <- readr::read_csv("pokemon.csv")
+```
+
+1. Separating attack set into primary secondary and tertiary and reading it
+
+```{r}
+pokemon_tidy <- pokemon %>% 
+  mutate(abilities = gsub("\\[|\\]|'", "", abilities)) %>% 
+  # gsub replaces all these mentioned characters with a blank (nothing)
+  
+  separate(abilities, c("primary_attack", "secondary_attack", "tertiary_attack"), sep = ",", fill = "right")
+
+write.csv(pokemon_tidy, "pokemon_tidy.csv")
+```
+
+2. App comparing stats by type
+
+```{r}
+pokemon_tidy %>% 
+  group_by(type1) %>% 
+  summarize(mean_attack = mean(attack)) %>% 
+  ggplot(aes(x = type1, y = mean_attack, fill = type1))+
+  theme_linedraw()+
+  geom_col()
+```
+
+
+```{r}
+pokemon_stats <- pokemon_tidy %>% 
+  group_by(type1) %>% 
+  summarize(mean_attack = mean(attack), mean_defense = mean(defense), mean_hp = mean(hp), mean_spattack = mean(sp_attack), mean_spdefense = mean(sp_defense), mean_speed = mean(speed), mean_basetotal = mean(base_total))
+```
+
+```{r}
+ui <- fluidPage(
+    selectInput("y", "Select Stat to Compare", choices = c("mean_attack", "mean_defense", "mean_hp", "mean_spattack", "mean_spdefense", "mean_speed", "mean_basetotal"), 
+              selected = "mean_attack"),
+    plotOutput("plot", width = "500px", height = "400px")
+)
+
+server <- function(input, output) {
+  output$plot <- renderPlot({
+    ggplot(data = pokemon_stats, aes_string(x = "type1", y = input$y, fill = "type1"))+
+      geom_col()
+  })   
+}
+
+shinyApp(ui, server)
+```
+
+3. Finding the current best and worst pokemon
+```{r}
+pokemon_tidy %>% 
+  select(name, base_total) %>% 
+  arrange(desc(base_total)) %>% 
+  slice_head(n = 5)
+```
+
+```{r}
+pokemon_tidy %>% 
+  select(name, base_total) %>% 
+  arrange(base_total) %>% 
+  slice_head(n = 5)
+```
+
+4. Strongest abilities

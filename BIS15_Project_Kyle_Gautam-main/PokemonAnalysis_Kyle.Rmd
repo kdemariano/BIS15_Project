@@ -1,0 +1,13 @@
+---
+title: "Pokemon_kyle"
+output: html_document
+date: "2023-03-02"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+```{r}
+pokemon<- read_csv("pokemon.csv")
+```
+
