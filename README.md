@@ -12,8 +12,12 @@ Link to the presentation: https://docs.google.com/presentation/d/1KzTE9_LqzcMm9v
 Here is a breakdown of how each member worked on this project:
 
 
-Gautam Ponugubati
+Gautam Ponugubati (Code in folder 'Pokemon_Analysis_Gautam_files')
 
+- Data cleanup and separation of attack lists into primary, secondary, and tertiary attacks
+- App comparing how stats of Pokemon change by type
+- Finding the top 5 best and worst pokemon
+- Finding the strongest abilities (primary attacks) across all Pokemon
 
 
 Kyle De Mariano
