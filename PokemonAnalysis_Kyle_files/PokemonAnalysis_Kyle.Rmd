@@ -1,0 +1,96 @@
+---
+title: "Pokemon_kyle"
+output: 
+  html_document: 
+    keep_md: yes
+date: "2023-03-02"
+---
+```{r}
+library(tidyverse)
+library(ggplot2)
+library(dplyr)
+library(janitor)
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+```{r}
+pokemon<- read_csv("pokemon_tidy.csv")
+```
+```{r} 
+pokemon %>%  #legendary
+  filter(is_legendary==1)
+```
+
+```{r}
+pokemon %>% #nonlegendary
+  filter(is_legendary==0)
+```
+
+
+```{r}
+#Comparing Pokemon by Generation
+pokemon %>% 
+  group_by(generation) %>% 
+  filter(is_legendary=="0") %>% 
+  summarize("mean_base_total"=mean(base_total)) %>% 
+  ggplot(aes(x=generation,y=mean_base_total, fill=generation))+ geom_col()+ labs(title="Comparing Base Stats by Generation", x="Generation", y="Mean Base Total")
+```
+
+```{r}
+#Table of Stats by generation, no legendaries
+pokemon %>%
+  group_by(generation) %>% 
+  filter(is_legendary=="0") %>% 
+  summarize(mean_base_total=mean(base_total),
+            mean_attack=mean(attack),
+            mean_sp_attack=mean(sp_attack),
+            mean_defense=mean(defense),
+            mean_sp_defense=mean(sp_defense),
+            mean_speed=mean(speed),
+            mean_hp=mean(hp))
+```
+
+
+```{r}
+#Comparing Dual Types vs Monotypes
+pokemon %>% 
+  filter(is_legendary=="0") %>% 
+  mutate(second_type = ifelse(type2 != "NA","Yes","No")) %>% 
+  group_by(second_type) %>% 
+  summarize(mean_base_total=mean(base_total)) %>% 
+  ggplot(aes(x=second_type,y=mean_base_total, fill= second_type))+geom_col()+ labs(title = "Comparing Monotypes vs Dual Types", x="Second Type", y="Mean Base Total")
+```
+
+
+
+```{r}
+#Best Starter for Region 1
+pokemon %>% 
+ filter(name=="Bulbasaur" | name=="Charmander" | name=="Squirtle") %>% 
+  select(name, base_total,attack, sp_attack, defense, sp_defense, speed, hp)
+```
+
+```{r}
+#Best Evolved Starter for Region 1
+pokemon %>% 
+ filter(name=="Venusaur" | name=="Charizard" | name=="Blastoise") %>% 
+  select(name, base_total, attack, sp_attack, defense, sp_defense, speed, hp)
+```
+```{r}
+pokemon2<- pokemon%>% 
+  group_by(is_legendary) %>% 
+  summarize(mean_base_total=mean(base_total),
+            mean_attack=mean(attack),
+            mean_sp_attack=mean(sp_attack),
+            mean_defense=mean(defense),
+            mean_sp_defense=mean(sp_defense),
+            mean_speed=mean(speed),
+            mean_hp=mean(hp))
+#Table of comparing legendary pokemon to non legendary
+pokemon2 %>% 
+  mutate(legendary=ifelse(is_legendary== 1,"Yes","No")) %>% 
+  select(!is_legendary)
+```
+
