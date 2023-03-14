@@ -22,7 +22,7 @@ Gautam Ponugubati (Code in folder 'Pokemon_Analysis_Gautam_files')
 
 Kyle De Mariano
 
--Table comparing the stats of the best starter Pokemon and their evolution
+- Table comparing the stats of the best starter Pokemon and their evolution
 - Graph on comparing which Generation contains the strongest Pokemon
 - Graph on determing if dual or monotype are stronger
 - Comparing the average stats of legendaries and non-legendaries
