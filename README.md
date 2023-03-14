@@ -20,7 +20,7 @@ Gautam Ponugubati (Code in folder 'Pokemon_Analysis_Gautam_files')
 - Finding the strongest abilities (primary attacks) across all Pokemon
 
 
-Kyle De Mariano
+Kyle De Mariano (Code in folder "PokemonAnalysis_Kyle_files")
 
 - Table comparing the stats of the best starter Pokemon and their evolution
 - Graph on comparing which Generation contains the strongest Pokemon
