@@ -27,3 +27,8 @@ Kyle De Mariano (Code in folder "PokemonAnalysis_Kyle_files")
 - Graph on determing if dual or monotype are stronger
 - Comparing the average stats of legendaries and non-legendaries
 
+
+
+Citations:
+- 'Pokemon.csv' - Rounak Baik
+  https://www.kaggle.com/datasets/rounakbanik/pokemon
