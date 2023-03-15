@@ -29,6 +29,6 @@ Kyle De Mariano (Code in folder "PokemonAnalysis_Kyle_files")
 
 
 
-*Citations:
+**Citations:
 - 'Pokemon.csv' - Rounak Baik
   https://www.kaggle.com/datasets/rounakbanik/pokemon
